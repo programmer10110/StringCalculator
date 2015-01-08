@@ -85,7 +85,7 @@ def eval(string):
                 stack.pop()
                 b = stack.peek()
                 stack.pop()
-                stack.push(int(b) ^ int(a))
+                stack.push(int(b) ** int(a))
         else:
             pass
     return stack.peek()
