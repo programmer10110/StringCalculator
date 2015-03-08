@@ -40,15 +40,25 @@ def RPN(string):
         elif symbol in operations:
             finish_string = finish_string + number + " "
             number = ""
-            while priority[symbol] <= priority[stack.peek()]:
-                if priority[symbol] >= priority[stack.peek()]:
-                    finish_string = finish_string + " " + stack.peek() + " "
-                    stack.pop()
-            stack.push(symbol)
+            if priority[symbol] > priority[stack.peek()]:
+                stack.push(symbol)
+            elif priority[symbol] < priority[stack.peek()]:
+                while True:
+                    if priority[symbol] > priority[stack.peek()]:
+                        break
+                    else:
+                        finish_string = finish_string + " " + stack.peek() + " "
+                        stack.pop()
+                stack.push(symbol)
+            #while priority[symbol] <= priority[stack.peek()]:
+                #if priority[symbol] >= priority[stack.peek()]:
+                    #finish_string = finish_string + " " + stack.peek() + " "
+                    #stack.pop()
+            #stack.push(symbol)
         index += 1
     return (finish_string + " " + stack.getall()).strip()
 
-def eval(string):
+def calc(string):
     operations = "+-*/^"
     rpn_string = RPN(string).split()
     stack = Stack()
